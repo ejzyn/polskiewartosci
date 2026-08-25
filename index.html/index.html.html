@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html>
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Polskie Wartości</title>
+
+  <style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #0b0f19;
+        color: #e2e8f0;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    .container {
+        background: #111827;
+        padding: 25px;
+        border-radius: 16px;
+        box-shadow: 0 0 35px rgba(0, 243, 255, 0.25);
+        border: 1px solid rgba(0, 243, 255, 0.4);
+        max-width: 550px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    h1 {
+        text-align: center;
+        color: #00f3ff;
+        font-size: 1.4rem;
+        margin-top: 0;
+        text-shadow: 0 0 12px rgba(0, 243, 255, 0.6);
+    }
+
+    /* --- EKRAN STARTOWY --- */
+    .hero-desc {
+        text-align: center;
+        font-size: 0.95rem;
+        color: #94a3b8;
+        line-height: 1.5;
+        margin-bottom: 20px;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .stat-card {
+        background: rgba(31, 41, 55, 0.6);
+        border: 1px solid rgba(0, 243, 255, 0.2);
+        border-radius: 10px;
+        padding: 10px 5px;
+        text-align: center;
+    }
+
+    .stat-icon {
+        font-size: 1.2rem;
+        margin-bottom: 4px;
+    }
+
+    .stat-val {
+        font-size: 0.85rem;
+        font-weight: bold;
+        color: #00f3ff;
+    }
+
+    .stat-lbl {
+        font-size: 0.7rem;
+        color: #94a3b8;
+    }
+
+    .section-title {
+        font-size: 0.85rem;
+        font-weight: bold;
+        color: #00f3ff;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .axes-preview-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 20px;
+    }
+
+    .axis-preview-item {
+        background: #1f2937;
+        border: 1px solid rgba(176, 38, 255, 0.2);
+        border-radius: 8px;
+        padding: 8px 12px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 0.8rem;
+    }
+
+    .axis-preview-name {
+        font-weight: bold;
+        color: #f3f4f6;
+    }
+
+    .axis-preview-sub {
+        font-size: 0.72rem;
+        color: #94a3b8;
+    }
+
+    .btn-start {
+        background: linear-gradient(135deg, #00f3ff, #b026ff);
+        color: #000;
+        font-size: 1rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        box-shadow: 0 0 15px rgba(0, 243, 255, 0.4);
+        margin-top: 10px;
+    }
+
+    .btn-start:hover {
+        box-shadow: 0 0 20px rgba(176, 38, 255, 0.8);
+        color: #fff;
+    }
+
+    /* --- QUIZ & WYNIKI --- */
+    .progress-container {
+        width: 100%;
+        background-color: #1f2937;
+        border-radius: 10px;
+        height: 10px;
+        margin-bottom: 15px;
+        overflow: hidden;
+        border: 1px solid rgba(0, 243, 255, 0.2);
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+    }
+
+    .progress-bar {
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(90deg, #00f3ff, #b026ff);
+        box-shadow: 0 0 12px #00f3ff;
+        transition: width 0.3s ease;
+    }
+
+    .counter {
+        font-size: 0.9rem;
+        color: #38bdf8;
+        margin-bottom: 15px;
+        font-weight: 600;
+        text-shadow: 0 0 6px rgba(56, 189, 248, 0.4);
+    }
+
+    .question {
+        font-size: 1.1rem;
+        margin-bottom: 20px;
+        font-weight: 600;
+        line-height: 1.4;
+        color: #f3f4f6;
+        text-shadow: 0 0 8px rgba(0, 243, 255, 0.25);
+        min-height: 60px;
+    }
+
+    .btn {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        margin: 7px 0;
+        border: none;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        text-align: center;
+        color: white;
+        border: 1px solid rgba(0, 243, 255, 0.3);
+        box-shadow: 0 0 10px rgba(0, 243, 255, 0.15);
+    }
+
+    .btn:hover {
+        filter: brightness(1.2);
+        transform: translateY(-1px);
+    }
+
+    .btn-s-yes { background: linear-gradient(135deg, #065f46, #047857); box-shadow: 0 0 10px rgba(5, 150, 105, 0.3); }
+    .btn-s-yes:hover { box-shadow: 0 0 12px rgba(5, 150, 105, 0.7); }
+
+    .btn-yes { background: linear-gradient(135deg, #047857, #059669); box-shadow: 0 0 10px rgba(16, 185, 129, 0.3); }
+    .btn-yes:hover { box-shadow: 0 0 12px rgba(16, 185, 129, 0.7); }
+
+    .btn-p-yes { background: linear-gradient(135deg, #0f766e, #0d9488); box-shadow: 0 0 10px rgba(20, 184, 166, 0.3); }
+    .btn-p-yes:hover { box-shadow: 0 0 12px rgba(20, 184, 166, 0.7); }
+
+    .btn-neutral { background: linear-gradient(135deg, #374151, #4b5563); box-shadow: 0 0 10px rgba(107, 114, 128, 0.3); }
+    .btn-neutral:hover { box-shadow: 0 0 12px rgba(107, 114, 128, 0.7); }
+
+    .btn-p-no { background: linear-gradient(135deg, #b45309, #d97706); box-shadow: 0 0 10px rgba(245, 158, 11, 0.3); }
+    .btn-p-no:hover { box-shadow: 0 0 12px rgba(245, 158, 11, 0.7); }
+
+    .btn-no { background: linear-gradient(135deg, #b91c1c, #dc2626); box-shadow: 0 0 10px rgba(239, 68, 68, 0.3); }
+    .btn-no:hover { box-shadow: 0 0 12px rgba(239, 68, 68, 0.7); }
+
+    .btn-s-no { background: linear-gradient(135deg, #7f1d1d, #991b1b); box-shadow: 0 0 10px rgba(185, 28, 28, 0.3); }
+    .btn-s-no:hover { box-shadow: 0 0 12px rgba(185, 28, 28, 0.7); }
+
+    .btn-back {
+        background: linear-gradient(135deg, #1f2937, #374151);
+        margin-top: 15px;
+        border-color: rgba(176, 38, 255, 0.4);
+        box-shadow: 0 0 10px rgba(176, 38, 255, 0.2);
+    }
+    .btn-back:hover { box-shadow: 0 0 12px rgba(176, 38, 255, 0.7); }
+
+    .result-box {
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+    .result-box p {
+        background: #1f2937;
+        padding: 10px;
+        border-radius: 8px;
+        border-left: 4px solid #00f3ff;
+        margin: 8px 0;
+        color: #d1d5db;
+        box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.3), 0 0 10px rgba(0, 243, 255, 0.08);
+    }
+    .party-match {
+        background: rgba(0, 243, 255, 0.05) !important;
+        border-left-color: #b026ff !important;
+        font-size: 1rem;
+        color: #00f3ff !important;
+        text-shadow: 0 0 10px rgba(0, 243, 255, 0.4);
+        box-shadow: 0 0 15px rgba(176, 38, 255, 0.2) !important;
+    }
+
+    .axes-wrapper {
+        background: #1f2937;
+        padding: 15px;
+        border-radius: 12px;
+        border: 1px solid rgba(0, 243, 255, 0.3);
+        margin: 15px 0;
+        box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .axis-box {
+        margin-bottom: 18px;
+    }
+
+    .axis-box:last-child {
+        margin-bottom: 5px;
+    }
+
+    .axis-title {
+        font-size: 0.85rem;
+        font-weight: bold;
+        color: #00f3ff;
+        text-align: center;
+        margin-bottom: 4px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .axis-labels {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.75rem;
+        color: #94a3b8;
+        margin-bottom: 4px;
+    }
+
+    .axis-bar-container {
+        position: relative;
+        height: 12px;
+        background: #0f172a;
+        border-radius: 6px;
+        border: 1px solid rgba(0, 243, 255, 0.3);
+        overflow: visible;
+    }
+
+    .axis-center-line {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        width: 2px;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.4);
+        transform: translateX(-50%);
+    }
+
+    .axis-dot {
+        position: absolute;
+        top: 50%;
+        width: 16px;
+        height: 16px;
+        background: #ffffff;
+        border: 3px solid #b026ff;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 0 10px #b026ff, 0 0 15px #00f3ff;
+        transition: left 0.5s ease-in-out;
+    }
+
+    .rank-list { list-style: none; padding: 0; margin: 0; }
+    .rank-item {
+        display: flex;
+        justify-content: space-between;
+        background: #1f2937;
+        padding: 8px 12px;
+        margin: 6px 0;
+        border-radius: 6px;
+        font-size: 0.85rem;
+        border-left: 3px solid #b026ff;
+        box-shadow: 0 0 8px rgba(176, 38, 255, 0.2);
+    }
+
+    .credits-footer {
+        margin-top: 25px;
+        padding: 12px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        text-align: center;
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .credits-text {
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.6);
+        letter-spacing: 0.5px;
+    }
+
+    .credits-author {
+        color: #00f2fe;
+        text-shadow: 0 0 8px rgba(0, 242, 254, 0.4);
+        font-weight: 600;
+    }
+
+    .tiktok-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-weight: 500;
+        padding: 4px 12px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    .tiktok-link:hover {
+        color: #00f2fe;
+        border-color: #00f2fe;
+        box-shadow: 0 0 12px rgba(0, 242, 254, 0.3);
+        transform: translateY(-2px);
+    }
+
+    .tiktok-link svg {
+        transition: transform 0.3s ease;
+    }
+
+    .tiktok-link:hover svg {
+        transform: scale(1.1);
+    }
+  </style>
+
+  
+</head>
+<body>
+  <div class="container" id="app">
+    <h1>Polskie Wartości</h1>
+
+    <!-- EKRAN STARTOWY -->
+    <div id="start-screen">
+        <p class="hero-desc">
+            Poznaj swoje poglądy polityczne i sprawdź, do której polskiej partii jest Ci najbliżej na podstawie 5 głównych osi ideologicznych.
+        </p>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">❓</div>
+                <div class="stat-val">50</div>
+                <div class="stat-lbl">pytań</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📊</div>
+                <div class="stat-val">5</div>
+                <div class="stat-lbl">osi wyników</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⏱️</div>
+                <div class="stat-val">3-5 min</div>
+                <div class="stat-lbl">Twojego czasu</div>
+            </div>
+        </div>
+
+        <div class="section-title">Mierzone osie poglądów:</div>
+        <div class="axes-preview-list">
+            <div class="axis-preview-item">
+                <span class="axis-preview-name">💼 Gospodarka</span>
+                <span class="axis-preview-sub">Wolny Rynek vs Interwencjonizm</span>
+            </div>
+            <div class="axis-preview-item">
+                <span class="axis-preview-name">🏛️ Obyczajowość</span>
+                <span class="axis-preview-sub">Konserwatyzm vs Progresywizm</span>
+            </div>
+            <div class="axis-preview-item">
+                <span class="axis-preview-name">🌍 Sprawy Zagraniczne</span>
+                <span class="axis-preview-sub">Eurosceptycyzm vs Pro-UE</span>
+            </div>
+            <div class="axis-preview-item">
+                <span class="axis-preview-name">⚖️ Władza i Prawo</span>
+                <span class="axis-preview-sub">Libertarianizm vs Autorytaryzm</span>
+            </div>
+            <div class="axis-preview-item">
+                <span class="axis-preview-name">🌿 Klimat i Środowisko</span>
+                <span class="axis-preview-sub">Antyekologizm vs Ochrona Środowiska</span>
+            </div>
+        </div>
+
+        <button class="btn btn-start" onclick="startQuiz()">Rozpocznij test</button>
+    </div>
+
+    <!-- QUIZ BOX -->
+    <div id="quiz-box" style="display: none;">
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        <div class="counter">
+            <span id="counter-text">Pytanie 1 z 50</span>
+        </div>
+        <p id="question-text" class="question">Ładowanie pytania...</p>
+
+        <button class="btn btn-s-yes" onclick="answer(3)">Całkowicie się zgadzam</button>
+        <button class="btn btn-yes" onclick="answer(2)">Zgadzam się</button>
+        <button class="btn btn-p-yes" onclick="answer(1)">Raczej się zgadzam</button>
+        <button class="btn btn-neutral" onclick="answer(0)">Nie mam zdania</button>
+        <button class="btn btn-p-no" onclick="answer(-1)">Raczej się nie zgadzam</button>
+        <button class="btn btn-no" onclick="answer(-2)">Nie zgadzam się</button>
+        <button class="btn btn-s-no" onclick="answer(-3)">Całkowicie się nie zgadzam</button>
+
+        <button class="btn btn-back" id="back-btn" onclick="prevQuestion()" style="display: none;">Wróć do poprzedniego pytania</button>
+    </div>
+
+    <!-- CREDITS -->
+    <footer class="credits-footer">
+        <span class="credits-text">Stworzone przez: <strong class="credits-author">cracks</strong></span>
+        <a href="https://www.tiktok.com/@16.48zl" target="_blank" rel="noopener noreferrer" class="tiktok-link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 1 1-5.2-1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V5.86a6.35 6.35 0 0 0-.88-.06A6.34 6.34 0 0 0 3.15 12a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V6.82a8.16 8.16 0 0 0 4.76 1.51V4.88a4.84 4.84 0 0 1-1-.19z"/>
+            </svg>
+            <span>@16.48zl</span>
+        </a>
+    </footer>
+</div>
+
+  <script>
+    const allQuestions = [
+    { text: "Państwo powinno zagwarantować powszechną, darmową opiekę zdrowotną i edukację wyższą z budżetu.", type: "eco", weight: 1 },
+    { text: "Podatki dochodowe powinny być mocno progresywne, aby zmniejszać nierówności społeczne.", type: "eco", weight: 1 },
+    { text: "Kluczowe gałęzie gospodarki (energetyka, kolej, banki) powinny należeć do państwa.", type: "eco", weight: 1 },
+    { text: "Państwo powinno ustalać wysoką płacę minimalną, chroniąc pracowników przed wyzyskiem.", type: "eco", weight: 1 },
+    { text: "Związki zawodowe powinny mieć duże uprawnienia i prawo do paraliżowania strajkami zakładów pracy.", type: "eco", weight: 1 },
+    { text: "Wolny rynek sam ureguluje wszelkie kwestie gospodarcze bez potrzeby ingerencji państwa.", type: "eco", weight: -1 },
+    { text: "Prywatyzacja państwowych spółek niemal zawsze podnosi ich efektywność i jakość usług.", type: "eco", weight: -1 },
+    { text: "Podatki liniowe lub niskie podatki ryczałtowe są najlepszym sposobem na stymulowanie rozwoju.", type: "eco", weight: -1 },
+    { text: "Składki na ZUS i ubezpieczenia społeczne powinny być dobrowolne, aby każdy sam decydował o oszczędnościach.", type: "eco", weight: -1 },
+    { text: "Dotacje i subwencje dla rolnictwa czy przedsiębiorstw powinny zostać całkowicie zlikwidowane.", type: "eco", weight: -1 },
+
+    { text: "Państwo powinno mieć prawo do zaostrzenia kar, włącznie z przywróceniem kary śmierci za najcięższe zbrodnie.", type: "auth", weight: 1 },
+    { text: "Bezpieczeństwo i stabilność państwa są ważniejsze niż nieograniczone swobody obywatelskie.", type: "auth", weight: 1 },
+    { text: "Służby specjalne i policja powinny mieć większe uprawnienia do inwigilacji obywateli w imię walki z przestępczością.", type: "auth", weight: 1 },
+    { text: "Rząd powinien móc wprowadzać radykalne ograniczenia praw w sytuacjach kryzysowych.", type: "auth", weight: 1 },
+    { text: "Wojsko i silna władza centralna to fundamenty dobrze funkcjonującego narodu.", type: "auth", weight: 1 },
+    { text: "Obywatele powinni mieć pełne prawo do posiadania broni palnej do celów obronnych bez pozwolenia.", type: "auth", weight: -1 },
+    { text: "Państwo nie powinno w żaden sposób kontrolować tego, co obywatele robią, piszą czy kupują w internecie.", type: "auth", weight: -1 },
+    { text: "Legalizacja substancji takich jak marihuana czy inne używki powinna być całkowita.", type: "auth", weight: -1 },
+    { text: "Przepisy budowlane, drogowe i sanitarne powinny być minimalne, opierając się na zdrowym rozsądku jednostki.", type: "auth", weight: -1 },
+    { text: "Każdy człowiek jest w pełni właścicielem swojego ciała i życia, a państwo nie ma prawa go pouczać.", type: "auth", weight: -1 },
+
+    { text: "Tradycyjny model rodziny oparty na małżeństwie kobiety i mężczyzny to fundament polskiego społeczeństwa.", type: "soc", weight: -1 },
+    { text: "Wartości chrześcijańskie powinny odgrywać kluczową rolę w życiu publicznym i stanowieniu prawa.", type: "soc", weight: -1 },
+    { text: "Aborcja powinna być całkowicie lub w dużej mierze zakazana przez prawo.", type: "soc", weight: -1 },
+    { text: "Szkoła powinna chronić dzieci przed nowoczesnymi ideologiami i promować tradycyjny patriotyzm.", type: "soc", weight: -1 },
+    { text: "Instytucja małżeństwa powinna być zarezerwowana wyłącznie dla związków heteroseksualnych.", type: "soc", weight: -1 },
+    { text: "Pary jednopłciowe powinny mieć pełne prawo do zawierania małżeństw i adopcji dzieci.", type: "soc", weight: 1 },
+    { text: "Dostęp do bezpiecznej i legalnej aborcji na życzenie powinien być pełnym prawem kobiety.", type: "soc", weight: 1 },
+    { text: "Państwo powinno być w pełni świeckie, a Kościół Katolicki powinien płacić podatki i nie otrzymywać dotacji.", type: "soc", weight: 1 },
+    { text: "Edukacja seksualna w szkołach powinna być powszechna, nowoczesna i wolna od uprzedzeń religijnych.", type: "soc", weight: 1 },
+    { text: "Osoby transpłciowe powinny mieć ułatwioną i w pełni finansowaną przez państwo procedurę korekty płci.", type: "soc", weight: 1 },
+
+    { text: "Unia Europejska powinna zmierzać w stronę przekształcenia się w jedno, federalne państwo.", type: "eur", weight: 1 },
+    { text: "Polska powinna jak najszybciej przyjąć wspólną walutę euro.", type: "eur", weight: 1 },
+    { text: "Prawa unijne oraz wyroki TSUE muszą bezwzględnie stać ponad polskim prawem krajowym.", type: "eur", weight: 1 },
+    { text: "Otwartość na imigrantów z różnych zakątków świata wzbogaca polską kulturę i gospodarkę.", type: "eur", weight: 1 },
+    { text: "Powinniśmy wspierać tworzenie globalnych struktur i rezygnować z części suwerenności na rzecz organizacji międzynarodowych.", type: "eur", weight: 1 },
+    { text: "Suwerenność narodowa jest nadrzędna – polski sejm powinien zawsze odrzucać unijne dyrektywy narzucane z zewnątrz.", type: "eur", weight: -1 },
+    { text: "Polska powinna prowadzić politykę całkowicie niezależną od Brukseli, Berlina czy Waszyngtonu.", type: "eur", weight: -1 },
+    { text: "Granice Polski muszą być szczelnie zamknięte dla nielegalnych imigrantów, bez żadnych wyjątków.", type: "eur", weight: -1 },
+    { text: "Współpraca międzynarodowa ma sens tylko wtedy, gdy przynosi bezpośrednie i mierzalne korzyści naszemu państwu.", type: "eur", weight: -1 },
+    { text: "Patriotyzm gospodarczy i wspieranie rodzimych firm są ważniejsze niż wolny handel globalny.", type: "eur", weight: -1 },
+
+    { text: "Polska powinna jak najszybciej odejść od węgla i zainwestować miliardy w odnawialne źródła energii (OZE).", type: "eco_env", weight: 1 },
+    { text: "Wprowadzenie podatków od emisji CO2 dla firm i paliw jest konieczne, by ratować planetę przed katastrofą klimatyczną.", type: "eco_env", weight: 1 },
+    { text: "Rozwój energetyki jądrowej w Polsce to najlepszy i najczystszy sposób na przyszłość.", type: "eco_env", weight: 1 },
+    { text: "Ochrona lasów, parków narodowych i rzek powinna mieć bezwzględny priorytet przed inwestycjami gospodarczymi.", type: "eco_env", weight: 1 },
+    { text: "Promowanie transportu zbiorowego i ograniczenie ruchu aut spalinowych w miastach to właściwy kierunek.", type: "eco_env", weight: 1 },
+    { text: "Polska powinna w pełni wykorzystywać własne zasoby węgla kamiennego i brunatnego, bo to gwarancja taniej energii.", type: "eco_env", weight: -1 },
+    { text: "Polityka klimatyczna Unii Europejskiej (Zielony Ład) niszczy polską gospodarkę i drastycznie podnosi ceny prądu.", type: "eco_env", weight: -1 },
+    { text: "Ekologiczne ograniczenia i restrykcje dla rolników powinny zostać natychmiast zniesione.", type: "eco_env", weight: -1 },
+    { text: "Rozwój przemysłu, dróg i fabryk jest znacznie ważniejszy niż spełnianie surowych norm środowiskowych.", type: "eco_env", weight: -1 },
+    { text: "Klimat na Ziemi zmienia się w sposób naturalny, a człowiek nie ma na niego aż tak wielkiego wpływu, by paraliżować gospodarki.", type: "eco_env", weight: -1 }
+];
+
+function shuffle(array) {
+    let currentIndex = array.length, randomIndex;
+    while (currentIndex != 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+        [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+    }
+    return array;
+}
+
+let questions = shuffle([...allQuestions]);
+let currentQuestion = 0;
+let answersHistory = [];
+let scores = { eco: 0, auth: 0, soc: 0, eur: 0, eco_env: 0 };
+
+function startQuiz() {
+    document.getElementById("start-screen").style.display = "none";
+    document.getElementById("quiz-box").style.display = "block";
+    showQuestion();
+}
+
+function showQuestion() {
+    if (currentQuestion < questions.length) {
+        document.getElementById("question-text").innerText = questions[currentQuestion].text;
+        document.getElementById("counter-text").innerText = `Pytanie ${currentQuestion + 1} z ${questions.length}`;
+
+        let progressPercent = (currentQuestion / questions.length) * 100;
+        document.getElementById("progress-bar").style.width = progressPercent + "%";
+        document.getElementById("back-btn").style.display = currentQuestion > 0 ? "block" : "none";
+    } else {
+        showResult();
+    }
+}
+
+function answer(pointsMultiplier) {
+    let q = questions[currentQuestion];
+    let calcPoints = pointsMultiplier * q.weight;
+
+    answersHistory[currentQuestion] = { type: q.type, points: calcPoints };
+    scores[q.type] += calcPoints;
+    currentQuestion++;
+    showQuestion();
+}
+
+function getMaxScoresPerAxis() {
+    const maxScores = { eco: 0, auth: 0, soc: 0, eur: 0, eco_env: 0 };
+    questions.forEach(q => {
+        if (maxScores[q.type] !== undefined) {
+            maxScores[q.type] += Math.abs(q.weight * 3);
+        }
+    });
+    return maxScores;
+}
+
+function prevQuestion() {
+    if (currentQuestion > 0) {
+        currentQuestion--;
+        let lastAns = answersHistory[currentQuestion];
+        if (lastAns) {
+            scores[lastAns.type] -= lastAns.points;
+            answersHistory.splice(currentQuestion, 1);
+        }
+        showQuestion();
+    }
+}
+
+const partyProfiles = [
+    { name: "Partia Razem", logo: "img/partiarazem.png", eco: 13, soc: 14, eur: 10, auth: -5, eco_env: 12 },
+    { name: "Nowa Lewica", logo: "img/nowalewica.png", eco: 9, soc: 12, eur: 12, auth: -2, eco_env: 9 },
+    { name: "Koalicja Obywatelska", logo: "img/ko.png", eco: -2, soc: 6, eur: 13, auth: -1, eco_env: 7 },
+    { name: "Polska 2050", logo: "img/pl2050.png", eco: -1, soc: 3, eur: 10, auth: 0, eco_env: 12 },
+    { name: "Polskie Stronnictwo Ludowe", logo: "img/psl.png", eco: 2, soc: -5, eur: 5, auth: 2, eco_env: -4 },
+    { name: "Prawo i Sprawiedliwość", logo: "img/pis.png", eco: 10, soc: -13, eur: -10, auth: 10, eco_env: -10 },
+    { name: "Konfederacja", logo: "img/konfederacja.png", eco: -14, soc: -9, eur: -13, auth: -7, eco_env: -13 },
+    { name: "Konfederacja Korony Polskiej", logo: "img/kkp.png", eco: -10, soc: -15, eur: -15, auth: 8, eco_env: -13 }
+];
+
+function calculateParties() {
+    const keys = ["eco", "soc", "eur", "auth", "eco_env"];
+    const maxScores = getMaxScoresPerAxis();
+
+    return partyProfiles.map(party => {
+        let squaredDistanceSum = 0;
+
+        keys.forEach(k => {
+            let maxVal = maxScores[k] || 30;
+            let userNorm = Math.min(1, Math.max(-1, scores[k] / maxVal));
+            let partyNorm = Math.min(1, Math.max(-1, party[k] / 15));
+
+            let diff = userNorm - partyNorm;
+            squaredDistanceSum += diff * diff;
+        });
+
+        let euclideanDistance = Math.sqrt(squaredDistanceSum);
+        let maxEuclideanDistance = Math.sqrt(keys.length * 4); 
+
+        let rawSimilarity = 1 - (euclideanDistance / maxEuclideanDistance);
+        let finalPercent = Math.min(99, Math.max(1, Math.round(rawSimilarity * 100)));
+
+        return {
+            name: party.name,
+            logo: party.logo,
+            percent: finalPercent
+        };
+    }).sort((a, b) => b.percent - a.percent);
+}
+
+function generateProfile() {
+    let ecoDesc = scores.eco > 4 ? "lewicowe gospodarczo" : (scores.eco < -4 ? "wolnorynkowe" : "umiarkowane gospodarczo");
+    let socDesc = scores.soc > 4 ? "progresywne" : (scores.soc < -4 ? "konserwatywne" : "centrowe obyczajowo");
+    let eurDesc = scores.eur > 4 ? "proeuropejskie" : (scores.eur < -4 ? "eurosceptyczne" : "umiarkowanie europejskie");
+    return `Twoje poglądy są <strong>${ecoDesc}</strong>, <strong>${socDesc}</strong> oraz <strong>${eurDesc}</strong>.`;
+}
+
+function showResult() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.getElementById("progress-bar").style.width = "100%";
+
+    let parties = calculateParties();
+    let bestParty = parties[0];
+    let profileText = generateProfile();
+
+    const axesConfig = [
+        { key: 'eco', title: 'Gospodarka', left: 'Wolny Rynek', right: 'Interwencjonizm' },
+        { key: 'soc', title: 'Obyczajowość', left: 'Konserwatyzm', right: 'Progresywizm' },
+        { key: 'eur', title: 'Sprawy Zagraniczne', left: 'Eurosceptycyzm', right: 'Pro-UE' },
+        { key: 'auth', title: 'Władza i Prawo', left: 'Libertarianizm', right: 'Autorytaryzm' },
+        { key: 'eco_env', title: 'Klimat i Środowisko', left: 'Antyekologizm', right: 'Ochrona Środowiska' }
+    ];
+
+    let axesHTML = axesConfig.map(axis => {
+        let maxVal = getMaxScoresPerAxis()[axis.key] || 15;
+        let score = scores[axis.key];
+        let percentage = Math.min(100, Math.max(0, ((score + maxVal) / (maxVal * 2)) * 100));
+
+        return `
+            <div class="axis-box">
+                <div class="axis-title">${axis.title}</div>
+                <div class="axis-labels">
+                    <span>${axis.left}</span>
+                    <span>${axis.right}</span>
+                </div>
+                <div class="axis-bar-container">
+                    <div class="axis-center-line"></div>
+                    <div class="axis-dot" style="left: ${percentage}%;"></div>
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    let rankingHTML = parties.map(p => `
+        <li class="rank-item" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <img src="${p.logo}" alt="${p.name}" style="width: 28px; height: 28px; object-fit: contain; background: #fff; border-radius: 4px; padding: 2px;" onerror="this.style.display='none'">
+                <span>${p.name}</span>
+            </div>
+            <strong>${p.percent}%</strong>
+        </li>
+    `).join('');
+
+    document.getElementById("app").innerHTML = `
+        <h1>Polskie Wartości</h1>
+        <div class="result-box">
+            <div class="party-match" style="text-align: center; margin-bottom: 20px;">
+                <p style="margin-bottom: 8px;">Najbliższa Tobie partia:</p>
+                <div style="display: flex; align-items: center; justify-content: center; gap: 12px;">
+                    <img src="${bestParty.logo}" alt="${bestParty.name}" style="width: 42px; height: 42px; object-fit: contain; background: #fff; border-radius: 6px; padding: 3px;" onerror="this.style.display='none'">
+                    <span style="font-size: 1.25em; font-weight: bold; color: #00f3ff;">${bestParty.name} (${bestParty.percent}% dopasowania)</span>
+                </div>
+            </div>
+            
+            <p><strong>Twój profil ideowy:</strong><br>${profileText}</p>
+
+            <div class="axes-wrapper">
+                <p style="text-align: center; font-weight: bold; margin-bottom: 15px; color: #00f3ff;">Twoje wyniki na 5 osiach:</p>
+                ${axesHTML}
+            </div>
+            
+            <p><strong>Pełny ranking dopasowania:</strong></p>
+            <ul class="rank-list" style="list-style: none; padding: 0;">${rankingHTML}</ul>
+            
+            <button class="btn btn-neutral" onclick="location.reload()" style="margin-top: 15px; width: 100%;">Rozwiąż test ponownie</button>
+        </div>
+    `;
+}
+  </script>
+</body>
+</html>
